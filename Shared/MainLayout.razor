@@ -1,0 +1,25 @@
+@inject ProductService ProductService
+
+<h3>Product List</h3>
+<ul>
+    @if (products == null)
+    {
+        <li>Loading...</li>
+    }
+    else
+    {
+        @foreach (var product in products)
+        {
+            <li>@product.Name - @product.Quantity available - $@product.Price</li>
+        }
+    }
+</ul>
+
+@code {
+    private List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetProductsAsync();
+    }
+}
